@@ -19,12 +19,18 @@ cd "$sheikh_name" || exit
 for i in {1..114}; do
   num=$(printf "%03d" "$i")
   file="${num}.mp3"
+  file_url="${base_url}/${file}"
 
-  # Check if file exists and is not empty
+  # Check if file exists locally and is not empty
   if [ -s "$file" ]; then
     echo "Skipping $file - already downloaded."
   else
-    echo "Downloading $file..."
-    wget -c -q --show-progress "${base_url}/${file}"
+    # Check if file exists on the server (returns 200 OK)
+    if wget --spider -q "$file_url"; then
+      echo "Downloading $file..."
+      wget -c -q --show-progress "$file_url"
+    else
+      echo "⚠️  Surah $num is not available for this sheikh (404 Not Found)."
+    fi
   fi
 done
