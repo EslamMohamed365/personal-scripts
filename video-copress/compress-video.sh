@@ -72,7 +72,7 @@ get_original_info() {
 
   duration=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$input" 2>/dev/null || echo "0")
   if [ -n "$duration" ] && [ "$duration" != "0" ]; then
-    duration=$(printf "%.1f%ss" "$duration")
+    duration=$(printf "%.1fs" "$duration")
   else
     duration="unknown"
   fi
@@ -179,7 +179,11 @@ main() {
   # Video filter
   local vf=""
   if [ -n "$scale" ]; then
-    vf="scale=${scale/x/:}"
+    local w="${scale/x*}"
+    local h="${scale#*x}"
+    vf="scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2"
+  else
+    vf="scale=trunc(iw/2)*2:trunc(ih/2)*2"
   fi
 
   # Video codec args
@@ -202,6 +206,9 @@ main() {
   if [ -n "$vf" ]; then
     cmd+=(-vf "$vf")
   fi
+
+  # Pixel format for browser compatibility
+  cmd+=(-pix_fmt yuv420p)
 
   # Audio codec args
   cmd+=(-c:a "$audio_codec" -b:a "$audio_bitrate")
