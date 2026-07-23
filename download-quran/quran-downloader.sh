@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Extract sheikh name & server base from URL
-url="https://server16.mp3quran.net/a_binhameed/Rewayat-Hafs-A-n-Assem/006.mp3"
+url="$1"
+
+if [ -z "$url" ]; then
+  echo "Usage: $0 <mp3quran-url>"
+  echo "Example: $0 'https://server8.mp3quran.net/afs/001.mp3'"
+  exit 1
+fi
 
 sheikh_name=$(echo "$url" | awk -F'/' '{print $(NF-1)}')
 base_url=$(echo "$url" | sed 's/\/[^\/]*$//')
