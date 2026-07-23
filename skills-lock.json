@@ -7,6 +7,12 @@
       "skillPath": "plugins/shell-scripting/skills/bash-defensive-patterns/SKILL.md",
       "computedHash": "9c63659b9130b214b75f84ec11ac715b647250ca8e0cde2357f4c578d43cfc24"
     },
+    "bash-pro": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/bash-pro/SKILL.md",
+      "computedHash": "a16136d229d501a974f81abc10449053e882c303190ccedb667e791d0b5ddec5"
+    },
     "bash-scripting": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
