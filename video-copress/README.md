@@ -10,8 +10,20 @@ Thin wrapper around [ffmpeg](https://ffmpeg.org/). Sets CRF 23, libx264, and med
 # Debian/Ubuntu
 sudo apt install ffmpeg
 
+# Fedora
+sudo dnf install ffmpeg
+
+# Arch Linux
+sudo pacman -S ffmpeg
+
 # macOS
 brew install ffmpeg
+
+# Windows (winget)
+winget install Gyan.FFmpeg
+
+# Windows (scoop)
+scoop install ffmpeg
 ```
 
 ## Usage
@@ -51,6 +63,8 @@ brew install ffmpeg
 
 > [!NOTE]
 > `-r` overrides `-s` when both are set.
+>
+> **Windows:** This script requires a bash-compatible shell. Use Git Bash, WSL, or MSYS2.
 
 ### Codec handling
 
