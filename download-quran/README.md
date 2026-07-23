@@ -55,3 +55,7 @@ This creates an `afs/` folder with all 114 surahs.
 # Download Mishary Alafasy's Murattal
 ./quran-downloader.sh 'https://server8.mp3quran.net/afs/001.mp3'
 ```
+
+> [!NOTE]
+>
+> **Windows:** This script requires a bash-compatible shell. Use Git Bash, WSL, or MSYS2.
