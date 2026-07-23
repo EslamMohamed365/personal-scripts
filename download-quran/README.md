@@ -27,7 +27,7 @@ chmod +x quran-downloader.sh
 
 ### Step 2 — Pick a sheikh
 
-Browse the home page and click on the sheikh/recitation you want.
+Browse the home page and click on the sheikh you want.
 
 ![Pick a sheikh](step1-pick-sheikh.png)
 
@@ -47,7 +47,7 @@ Click the **نسخ الرابط** (Copy link) button on any surah.
 ./quran-downloader.sh 'https://server8.mp3quran.net/afs/001.mp3'
 ```
 
-This creates an `afasy/` folder with all 114 surahs.
+This creates an `afs/` folder with all 114 surahs.
 
 ## Example
 
