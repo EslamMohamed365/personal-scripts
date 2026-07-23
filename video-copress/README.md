@@ -29,6 +29,7 @@ scoop install ffmpeg
 ## Usage
 
 ```bash
+chmod -x compress-video.sh
 ./compress-video.sh [OPTIONS] <input_file>
 ```
 
