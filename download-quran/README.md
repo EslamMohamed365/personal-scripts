@@ -14,11 +14,6 @@ Bash script to download all 114 surahs as MP3 from [mp3quran.net](https://mp3qur
 4. Downloads surahs `001.mp3` through `114.mp3` into that folder
 5. Skips already downloaded files (safe to re-run)
 
-## Prerequisites
-
-- `bash`
-- `wget`
-
 ## Usage
 
 ```bash
@@ -45,16 +40,6 @@ Click on any surah from the list.
 Click the **نسخ الرابط** (Copy link) button on any surah.
 
 ![Copy the link](step2-copy-link.png)
-
-The URL will look like:
-
-```
-https://server16.mp3quran.net/afasy/Murattal-Hafs/001.mp3
-                                        ^^^^^^^^^^^^^^^^^^^
-                                        This part does not matter
-```
-
-Only the **sheikh name** (e.g. `afasy`) is used — the script ignores the surah number and downloads all 114.
 
 ### Step 5 — Run the script
 
