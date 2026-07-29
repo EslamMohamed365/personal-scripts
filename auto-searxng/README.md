@@ -38,8 +38,8 @@ The script creates a Quadlet container definition, cleans up any previous instal
 Clone the repository and run the script:
 
 ```bash
-git clone https://github.com/<your-username>/auto-searxng.git
-cd auto-searxng
+git clone https://github.com/EslamMohamed365/personal-scripts.git
+cd personal-scripts/auto-searxng
 chmod +x install-searxng.sh
 ./install-searxng.sh
 ```
@@ -47,7 +47,7 @@ chmod +x install-searxng.sh
 Or run directly without cloning:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<your-username>/auto-searxng/main/install-searxng.sh | bash
+curl -fsSL https://raw.githubusercontent.com/EslamMohamed365/personal-scripts/main/auto-searxng/install-searxng.sh | bash
 ```
 
 ## Usage
@@ -207,6 +207,7 @@ Alternatively:
 
 > [!CAUTION]
 > If the service fails to start, check the logs first:
+>
 > ```bash
 > journalctl --user -u searxng -e
 > ```
