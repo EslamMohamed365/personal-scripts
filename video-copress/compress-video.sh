@@ -161,11 +161,11 @@ main() {
 
   # Get original file info
   local orig_size orig_duration
-  read -r orig_size orig_duration <<< "$(get_original_info "$input")"
+  read -r orig_size orig_duration <<<"$(get_original_info "$input")"
 
   info "Input:        $input"
   info "Output:       $output"
-  info "Original:     $( [ "$orig_size" = "unknown" ] && echo "unknown" || format_size "$orig_size" ) ($orig_duration)"
+  info "Original:     $([ "$orig_size" = "unknown" ] && echo "unknown" || format_size "$orig_size") ($orig_duration)"
   info "CRF:          $crf"
   info "Preset:       $preset"
   info "Video codec:  $video_codec"
@@ -179,7 +179,7 @@ main() {
   # Video filter
   local vf=""
   if [ -n "$scale" ]; then
-    local w="${scale/x*}"
+    local w="${scale/x*/}"
     local h="${scale#*x}"
     vf="scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2"
   else
@@ -231,7 +231,7 @@ main() {
 
     info "Compression complete"
     info "Output:       $output"
-    info "Compressed:   $( [ -z "$new_raw_size" ] && echo "unknown" || format_size "$new_raw_size" ) (ratio: $ratio)"
+    info "Compressed:   $([ -z "$new_raw_size" ] && echo "unknown" || format_size "$new_raw_size") (ratio: $ratio)"
   else
     rm -f "$output"
     error "ffmpeg failed"
