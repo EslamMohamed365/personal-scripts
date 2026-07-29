@@ -1,7 +1,7 @@
 <!-- prettier-ignore -->
 <div align="center">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/SearXNG_logo.svg" alt="SearXNG logo" align="center" height="96" />
+<img src="searxng.svg" alt="SearXNG logo" align="center" height="96" />
 
 # install-searxng
 
