@@ -1,8 +1,11 @@
+<!-- prettier-ignore -->
 <div align="center">
 
 # Quran Downloader
 
 Bash script to download all 114 surahs as MP3 from [mp3quran.net](https://mp3quran.net).
+
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](../LICENSE)
 
 </div>
 

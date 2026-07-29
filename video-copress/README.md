@@ -1,4 +1,11 @@
+<!-- prettier-ignore -->
+<div align="center">
+
 # compress-video
+
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](../LICENSE)
+
+</div>
 
 Thin wrapper around [ffmpeg](https://ffmpeg.org/). Sets CRF 23, libx264, and medium preset by default. Handles codec-specific args and prints compression stats after each run.
 

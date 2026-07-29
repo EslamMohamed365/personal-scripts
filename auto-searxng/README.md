@@ -7,7 +7,7 @@
 
 One-command setup for [SearXNG](https://docs.searxng.org) as a rootless Podman Quadlet systemd service.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](LICENSE)
 
 [Overview](#overview) &bull; [Prerequisites](#prerequisites) &bull; [Installation](#installation) &bull; [Usage](#usage) &bull; [Configuration](#configuration) &bull; [Default search engine](#set-as-default-search-engine) &bull; [Troubleshooting](#troubleshooting)
 
