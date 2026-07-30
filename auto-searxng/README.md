@@ -226,6 +226,32 @@ Alternatively:
 > [!TIP]
 > Replace `localhost` with your server's IP or hostname if accessing SearXNG from multiple machines on your network.
 
+## Stopping & Uninstalling
+
+```bash
+# Stop the service
+systemctl --user stop searxng
+
+# Disable autostart on boot
+systemctl --user disable searxng
+
+# Remove container and images
+podman rm -f searxng
+podman rmi docker.io/searxng/searxng:latest
+
+# Delete configuration files
+rm -rf ~/.config/searxng ~/.config/containers/systemd/searxng.container
+
+# Reload systemd
+systemctl --user daemon-reload
+```
+
+To also disable auto-updates:
+
+```bash
+systemctl --user disable --now podman-auto-update.timer
+```
+
 ## Troubleshooting
 
 > [!CAUTION]
