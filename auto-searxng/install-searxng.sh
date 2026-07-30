@@ -17,10 +17,6 @@ log() {
   echo "[$(date +'\%Y-\%m-\%d \%H:\%M:\%S')] INFO:$*"
 }
 
-success() {
-  echo "[$(date +'\%Y-\%m-\%d \%H:\%M:\%S')] OK:$*"
-}
-
 fail() {
   echo "[$(date +'\%Y-\%m-\%d \%H:\%M:\%S')] ERROR:$*" >&2
   exit 1
@@ -92,7 +88,7 @@ EOF
 enable_autoupdate_timer() {
   log "Enabling daily automatic updates via podman-auto-update.timer..."
   if systemctl --user enable --now podman-auto-update.timer &>/dev/null; then
-    success "podman-auto-update.timer enabled successfully!"
+    log "OK: podman-auto-update.timer enabled successfully!"
   else
     log "Warning: Could not enable podman-auto-update.timer automatically."
   fi
@@ -155,7 +151,7 @@ EOF
   enable_autoupdate_timer
 
   if wait_for_service; then
-    success "SearXNG installed and running!"
+    log "OK: SearXNG installed and running!"
     log "Access it at: http://localhost:${SEARXNG_PORT}"
   else
     fail "Service did not start. Check: journalctl --user -u $SERVICE_NAME -e"

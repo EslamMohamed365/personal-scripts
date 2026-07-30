@@ -156,72 +156,15 @@ SearXNG exposes an OpenSearch XML descriptor that browsers can use to add it as 
 
 ### Manual setup by browser
 
-<details>
-<summary><strong>Firefox</strong></summary>
+All browsers use the same search URL: `http://localhost:5039/search?q=%s`
 
-1. Open `http://localhost:5039`
-2. Right-click the address bar and select **Add Search Engine**
-3. Select **SearXNG** from the list
-
-Alternatively:
-
-1. Go to `about:preferences#search`
-2. Scroll to **Search Shortcuts** and click **Add**
-3. Enter `http://localhost:5039/search?q=%s` and save
-
-</details>
-
-<details>
-<summary><strong>Chrome / Chromium</strong></summary>
-
-1. Open `http://localhost:5039`
-2. Right-click the address bar and select **Manage search engines** > **Add**
-3. Fill in:
-   - **Search engine**: `SearXNG`
-   - **Shortcut**: `searxng`
-   - **URL**: `http://localhost:5039/search?q=%s`
-4. Click **Save**
-
-</details>
-
-<details>
-<summary><strong>Brave</strong></summary>
-
-1. Open `http://localhost:5039`
-2. Right-click the address bar and select **Manage search engines** > **Add**
-3. Fill in:
-   - **Search engine**: `SearXNG`
-   - **Shortcut**: `searxng`
-   - **URL**: `http://localhost:5039/search?q=%s`
-4. Click **Save**
-
-</details>
-
-<details>
-<summary><strong>Edge</strong></summary>
-
-1. Open `http://localhost:5039`
-2. Right-click the address bar and select **Manage search engines** > **Add**
-3. Fill in:
-   - **Search engine**: `SearXNG`
-   - **Keyword**: `searxng`
-   - **URL**: `http://localhost:5039/search?q=%s`
-4. Click **Save**
-
-</details>
-
-<details>
-<summary><strong>Safari</strong></summary>
-
-1. Open `http://localhost:5039`
-2. Go to **Safari** > **Settings** > **Search**
-3. Click **Manage Search Engines...**
-4. Click **Add...** and enter:
-   - **Name**: `SearXNG`
-   - **URL**: `http://localhost:5039/search?q=%s`
-5. Click **Save**
-
-</details>
+| Browser | Steps |
+|---------|-------|
+| **Firefox** | Right-click address bar > **Add Search Engine** > select SearXNG. Or: `about:preferences#search` > **Search Shortcuts** > **Add**. |
+| **Chrome / Chromium** | Right-click address bar > **Manage search engines** > **Add**. Set **Shortcut** to `searxng`. |
+| **Brave** | Right-click address bar > **Manage search engines** > **Add**. Set **Shortcut** to `searxng`. |
+| **Edge** | Right-click address bar > **Manage search engines** > **Add**. Set **Keyword** to `searxng`. |
+| **Safari** | **Safari** > **Settings** > **Search** > **Manage Search Engines...** > **Add...** |
 
 > [!TIP]
 > Replace `localhost` with your server's IP or hostname if accessing SearXNG from multiple machines on your network.
