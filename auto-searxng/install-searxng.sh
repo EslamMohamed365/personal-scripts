@@ -147,8 +147,8 @@ EOF
   log "Reloading user systemd daemon..."
   systemctl --user daemon-reload
 
-  log "Enabling and starting $SERVICE_NAME ..."
-  if ! systemctl --user enable --now "$SERVICE_NAME"; then
+  log "Starting $SERVICE_NAME ..."
+  if ! systemctl --user start "$SERVICE_NAME"; then
     fail "Failed to start $SERVICE_NAME. Check: journalctl --user -u $SERVICE_NAME -e"
   fi
 
