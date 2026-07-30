@@ -2,7 +2,7 @@
 
 url="$1"
 
-if [ -z "$url" ]; then
+if [ $# -ne 1 ] || [[ "$url" != *mp3quran* ]]; then
   echo "Usage: $0 <mp3quran-url>"
   echo "Example: $0 'https://server8.mp3quran.net/afs/001.mp3'"
   exit 1
