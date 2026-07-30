@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly SCRIPT_NAME=$(basename "$0")
+readonly SCRIPT_NAME
+SCRIPT_NAME=$(basename "$0")
 
 # Defaults
 DEFAULT_CRF=23
@@ -165,7 +166,13 @@ main() {
 
   info "Input:        $input"
   info "Output:       $output"
-  info "Original:     $([ "$orig_size" = "unknown" ] && echo "unknown" || format_size "$orig_size") ($orig_duration)"
+  local orig_display
+  if [ "$orig_size" = "unknown" ]; then
+    orig_display="unknown"
+  else
+    orig_display=$(format_size "$orig_size")
+  fi
+  info "Original:     $orig_display ($orig_duration)"
   info "CRF:          $crf"
   info "Preset:       $preset"
   info "Video codec:  $video_codec"
@@ -231,7 +238,13 @@ main() {
 
     info "Compression complete"
     info "Output:       $output"
-    info "Compressed:   $([ -z "$new_raw_size" ] && echo "unknown" || format_size "$new_raw_size") (ratio: $ratio)"
+    local comp_display
+    if [ -z "$new_raw_size" ]; then
+      comp_display="unknown"
+    else
+      comp_display=$(format_size "$new_raw_size")
+    fi
+    info "Compressed:   $comp_display (ratio: $ratio)"
   else
     rm -f "$output"
     error "ffmpeg failed"
