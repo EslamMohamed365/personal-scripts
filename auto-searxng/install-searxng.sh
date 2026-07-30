@@ -101,7 +101,8 @@ After=network-online.target
 [Container]
 Image=docker.io/searxng/searxng:latest
 ContainerName=searxng
-PublishPort=${SEARXNG_PORT}:8080
+Environment=SEARXNG_PORT=${SEARXNG_PORT}
+PublishPort=${SEARXNG_PORT}:${SEARXNG_PORT}
 AutoUpdate=registry
 
 [Install]
