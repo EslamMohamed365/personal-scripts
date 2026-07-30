@@ -9,28 +9,31 @@ One-command setup for [SearXNG](https://docs.searxng.org) as a rootless Podman Q
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](LICENSE)
 
-[Overview](#overview) &bull; [Prerequisites](#prerequisites) &bull; [Installation](#installation) &bull; [Usage](#usage) &bull; [Configuration](#configuration) &bull; [Default search engine](#set-as-default-search-engine) &bull; [Troubleshooting](#troubleshooting)
+[Overview](#overview) &bull; [Prerequisites](#prerequisites) &bull; [Installation](#installation) &bull; [Usage](#usage) &bull; [Configuration](#configuration) &bull; [Default search engine](#set-as-default-search-engine) &bull; [Container Auto-Updates](#container-auto-updates) &bull; [Troubleshooting](#troubleshooting)
 
 </div>
 
 ## Overview
 
-A single bash script that installs and runs SearXNG as a rootless Podman container managed by systemd Quadlet. No Docker. No root. No manual configuration files.
+A single bash script that installs and runs SearXNG as a rootless Podman container managed by systemd Quadlet. No Docker. No root. No manual configuration required.
 
-The script creates a Quadlet container definition, cleans up any previous installation, and starts the service -- all in one shot.
+The script generates default configuration settings, sets up a Quadlet container definition, enables daily automatic updates, and starts the service -- all in one shot.
 
 **What it does:**
 
-- Checks for required dependencies (`podman`, `systemctl`)
-- Enables user-level systemd lingering if needed
+- Checks for required dependencies (`podman`, `systemctl`, `openssl`)
+- Checks that user-level systemd lingering is active (fails with instructions if not)
+- Generates a default configuration at `~/.config/searxng/settings.yml` (with a random secret key) if not present
 - Generates a Quadlet `.container` file at `~/.config/containers/systemd/searxng.container`
 - Starts and enables the `searxng.service` systemd user unit
+- Enables `podman-auto-update.timer` by default for daily background container updates
 - Verifies the service is running before exiting
 
 ## Prerequisites
 
 - Linux with systemd
 - [Podman](https://podman.io/) installed
+- `openssl` (used to generate a secure secret key for SearXNG)
 - User-level systemd session (`loginctl enable-linger $USER` if not already active)
 
 ## Installation
@@ -61,7 +64,7 @@ curl -fsSL https://raw.githubusercontent.com/EslamMohamed365/personal-scripts/ma
 | Flag | Description |
 |------|-------------|
 | `-h`, `--help` | Show help message |
-| `-p`, `--port NUM` | Port to expose SearXNG on (default: `5039`) |
+| `-p`, `--port NUM` | Host port to expose SearXNG on (default: `5039`) |
 
 **Examples:**
 
@@ -81,17 +84,22 @@ http://localhost:5039
 
 ## Configuration
 
-The script writes a Quadlet container file to:
+### SearXNG settings
+
+The script automatically generates a starter configuration file at:
+
+```
+~/.config/searxng/settings.yml
+```
+
+You can customize your instance (active search engines, themes, language options) by editing this file directly. Changes will persist across container restarts and updates.
+
+### Quadlet file
+
+The Quadlet container definition is placed at:
 
 ```
 ~/.config/containers/systemd/searxng.container
-```
-
-To customize the SearXNG instance further (engines, settings, themes), mount a custom `settings.yml` by editing the Quadlet file after installation:
-
-```ini
-[Container]
-Volume=$HOME/.config/searxng/settings.yml:/etc/searxng/settings.yml:ro
 ```
 
 ### Systemd management
@@ -103,7 +111,7 @@ systemctl --user status searxng
 # View logs
 journalctl --user -u searxng -f
 
-# Restart after config changes
+# Restart service after editing settings.yml
 systemctl --user restart searxng
 
 # Stop the service
@@ -113,18 +121,27 @@ systemctl --user stop searxng
 systemctl --user disable searxng
 ```
 
-### Container auto-updates
+## Container Auto-Updates
 
-The Quadlet file includes `AutoUpdate=registry`. For automatic background updates, enable the Podman auto-update timer:
+Daily automatic container updates are enabled by default during setup using systemd's `podman-auto-update.timer`.
+
+**How it works:**
+
+1. **Labeling** -- the Quadlet file includes `AutoUpdate=registry`, which adds the `io.containers.autoupdate=registry` label to the container.
+2. **Scheduling** -- systemd triggers `podman-auto-update.service` once a day via `podman-auto-update.timer`.
+3. **Execution** -- Podman checks the registry for a newer image, pulls it if available, gracefully restarts `searxng.service`, and prunes old unused images to save disk space.
+
+**Useful management commands:**
 
 ```bash
-systemctl --user enable --now podman-auto-update.timer
-```
+# Check auto-update timer status
+systemctl --user status podman-auto-update.timer
 
-Or trigger updates manually:
-
-```bash
+# Run a manual update check immediately
 podman auto-update
+
+# Disable automatic updates
+systemctl --user disable --now podman-auto-update.timer
 ```
 
 ## Set as default search engine
@@ -150,7 +167,7 @@ Alternatively:
 
 1. Go to `about:preferences#search`
 2. Scroll to **Search Shortcuts** and click **Add**
-3. Enter `http://localhost:5039` and save
+3. Enter `http://localhost:5039/search?q=%s` and save
 
 </details>
 
@@ -243,8 +260,8 @@ loginctl enable-linger $USER
 ```bash
 systemctl --user stop searxng
 systemctl --user disable searxng
-podman rm -f searxng
 rm -f ~/.config/containers/systemd/searxng.container
+rm -rf ~/.config/searxng
 systemctl --user daemon-reload
 
 # Then run the installer again
