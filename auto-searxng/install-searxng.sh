@@ -135,7 +135,7 @@ ContainerName=searxng
 Environment=SEARXNG_PORT=${SEARXNG_PORT}
 PublishPort=${SEARXNG_PORT}:${SEARXNG_PORT}
 AutoUpdate=registry
-Volume=%h/.config/searxng/settings.yml:/etc/searxng/settings.yml:ro
+Volume=%h/.config/searxng/settings.yml:/etc/searxng/settings.yml:Z
 
 [Install]
 WantedBy=default.target
