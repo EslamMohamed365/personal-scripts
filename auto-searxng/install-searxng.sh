@@ -8,7 +8,8 @@ set -Eeuo pipefail
 readonly QUADLET_DIR="$HOME/.config/containers/systemd"
 readonly CONTAINER_FILE="$QUADLET_DIR/searxng.container"
 readonly SERVICE_NAME="searxng.service"
-readonly SEARXNG_PORT="5039"
+DEFAULT_SEARXNG_PORT="5039"
+SEARXNG_PORT="$DEFAULT_SEARXNG_PORT"
 
 log() {
   echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $*"
@@ -24,11 +25,11 @@ fail() {
 }
 
 on_error() {
+  rm -f "$CONTAINER_FILE" 2>/dev/null || true
   fail "Error on line $1"
 }
 
 trap 'on_error $LINENO' ERR
-trap 'rm -f "$CONTAINER_FILE" 2>/dev/null || true' EXIT
 
 usage() {
   cat <<EOF
@@ -36,7 +37,7 @@ Usage: $(basename "$0") [OPTIONS]
 
 Options:
     -h, --help      Show help
-    -p, --port NUM  SearXNG port (default: ${SEARXNG_PORT})
+    -p, --port NUM  SearXNG port (default: ${DEFAULT_SEARXNG_PORT})
 EOF
   exit "${1:-0}"
 }
@@ -46,6 +47,7 @@ parse_args() {
     case "$1" in
     -h | --help) usage 0 ;;
     -p | --port)
+      [[ "${2:-}" =~ ^[0-9]+$ ]] || fail "Invalid port: ${2:-<missing>}"
       SEARXNG_PORT="$2"
       shift 2
       ;;
