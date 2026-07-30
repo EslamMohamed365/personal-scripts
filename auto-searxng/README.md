@@ -115,7 +115,13 @@ systemctl --user disable searxng
 
 ### Container auto-updates
 
-The Quadlet file includes `AutoUpdate=registry`, so Podman will automatically pull newer SearXNG images when available. Trigger updates with:
+The Quadlet file includes `AutoUpdate=registry`. For automatic background updates, enable the Podman auto-update timer:
+
+```bash
+systemctl --user enable --now podman-auto-update.timer
+```
+
+Or trigger updates manually:
 
 ```bash
 podman auto-update
