@@ -12,8 +12,9 @@ sheikh_name=$(echo "$url" | awk -F'/' '{print $(NF-1)}')
 base_url=$(echo "$url" | sed 's/\/[^\/]*$//')
 
 # Create folder & enter it
-mkdir -p "$sheikh_name"
-cd "$sheikh_name" || exit
+dest=~/Downloads/"$sheikh_name"
+mkdir -p "$dest"
+cd "$dest" || exit
 
 # Download 114 surahs with check using wget
 for i in {1..114}; do

@@ -13,9 +13,41 @@ Bash script to download all 114 surahs as MP3 from [mp3quran.net](https://mp3qur
 
 1. You give it a URL of any surah from [mp3quran.net](https://mp3quran.net)
 2. It extracts the sheikh name and base URL automatically
-3. Creates a folder named after the sheikh
+3. Creates `~/Downloads/<sheikh_name>/` folder
 4. Downloads surahs `001.mp3` through `114.mp3` into that folder
 5. Skips already downloaded files (safe to re-run)
+
+## Setup Dependencies
+
+### Linux (Debian/Ubuntu)
+
+```bash
+sudo apt install wget
+```
+
+### Linux (Fedora)
+
+```bash
+sudo dnf install wget
+```
+
+### macOS
+
+```bash
+brew install wget
+```
+
+### Windows
+
+Windows requires a bash-compatible shell. Use **Git Bash**, **WSL**, or **MSYS2**.
+
+```bash
+# WSL
+sudo apt install wget
+
+# Git Bash (via Chocolatey)
+choco install wget
+```
 
 ## Usage
 
@@ -23,6 +55,8 @@ Bash script to download all 114 surahs as MP3 from [mp3quran.net](https://mp3qur
 chmod +x quran-downloader.sh
 ./quran-downloader.sh '<url>'
 ```
+
+Downloads go to `~/Downloads/<sheikh_name>/`.
 
 ## How to find the URL
 
@@ -50,7 +84,7 @@ Click the **نسخ الرابط** (Copy link) button on any surah.
 ./quran-downloader.sh 'https://server8.mp3quran.net/afs/001.mp3'
 ```
 
-This creates an `afs/` folder with all 114 surahs.
+This creates `~/Downloads/afs/` with all 114 surahs.
 
 ## Example
 
